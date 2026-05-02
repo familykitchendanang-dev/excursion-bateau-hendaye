@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.excursionbateauhendaye.com/</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.excursionbateauhendaye.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.excursionbateauhendaye.com/en.html"/>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/hero.jpg</image:loc>
+      <image:title>Excursion bateau Hendaye – vue drone bateau eaux turquoises côte basque</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/photo-01.jpg</image:loc>
+      <image:title>Apéritif dans l'eau côte basque excursion bateau Hendaye</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/photo-02.jpg</image:loc>
+      <image:title>Vue drone bateau sur les eaux turquoises côte basque Hendaye</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/photo-03.jpg</image:loc>
+      <image:title>Baignade en mer près du phare – excursion bateau Hendaye</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/photo-04.jpg</image:loc>
+      <image:title>Dauphin observé depuis le bateau côte basque Hendaye</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/photo-05.jpg</image:loc>
+      <image:title>Retour au coucher de soleil excursion bateau Hendaye</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.excursionbateauhendaye.com/images/photo-06.jpg</image:loc>
+      <image:title>Crique secrète eaux turquoises accessible uniquement en bateau Hendaye</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.excursionbateauhendaye.com/en.html</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.excursionbateauhendaye.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.excursionbateauhendaye.com/en.html"/>
+  </url>
+</urlset>
