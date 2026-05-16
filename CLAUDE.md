@@ -11,7 +11,7 @@ A two-page static HTML website for a boat tour business (Excursion Bateau Henday
 - `_headers` — Netlify cache and security headers
 - `sitemap.xml` — XML sitemap (update `<lastmod>` when pages change)
 
-The site is deployed on Netlify with the custom domain `excursionbateauhendaye.com`.
+The site is deployed on GitHub Pages with the custom domain `excursionbateauhendaye.com`.
 
 ## Architecture
 
@@ -64,4 +64,4 @@ When updating key business details, search for all occurrences across both files
 
 ## Deployment
 
-Push to `main` — Netlify deploys automatically. The `_headers` file sets aggressive caching on images (1 year immutable) and moderate caching on HTML (1 hour), so after updating HTML content users will see changes within an hour without any cache-busting needed.
+Push to `main` — GitHub Pages deploys automatically. The `_headers` file sets aggressive caching on images (1 year immutable) and moderate caching on HTML (1 hour), so after updating HTML content users will see changes within an hour without any cache-busting needed.
