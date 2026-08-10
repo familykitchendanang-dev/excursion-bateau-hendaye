@@ -899,9 +899,11 @@
 const dateInput = document.getElementById('resa-date');
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-const FIRST_AVAILABLE_DATE = '2026-08-17'; // fully booked through August 16
+const FIRST_AVAILABLE_DATE = '2026-08-17'; // bookings open
+const LAST_AVAILABLE_DATE = '2026-09-14'; // end of available period
 const minDate = FIRST_AVAILABLE_DATE > tomorrow.toISOString().split('T')[0] ? FIRST_AVAILABLE_DATE : tomorrow.toISOString().split('T')[0];
 dateInput.min = minDate;
+dateInput.max = LAST_AVAILABLE_DATE;
 dateInput.value = minDate;
 updateTotal();
 
@@ -1175,17 +1177,28 @@ function isDateBloquee(dateStr) {
   return DATES_BLOQUEES.includes(dateStr);
 }
 
+function isOutsidePeriod(dateStr) {
+  return dateStr < FIRST_AVAILABLE_DATE || dateStr > LAST_AVAILABLE_DATE;
+}
+
 function updateDateInput() {
   const dateInput = document.getElementById('resa-date');
   if (!dateInput) return;
 
   dateInput.addEventListener('change', function() {
     const val = this.value;
+    const isEn = this.dataset.lang === 'en';
     if (isDateBloquee(val)) {
       this.value = '';
-      const msg = this.dataset.lang === 'en'
+      const msg = isEn
         ? 'This date is already fully booked. Please choose another date.'
         : 'Cette date est complète. Veuillez choisir une autre date.';
+      alert(msg);
+    } else if (isOutsidePeriod(val)) {
+      this.value = '';
+      const msg = isEn
+        ? 'Bookings are only open from August 17 to September 14. Please choose a date in that range.'
+        : 'Les réservations sont ouvertes uniquement du 17 août au 14 septembre. Veuillez choisir une date dans cette période.';
       alert(msg);
     }
   });

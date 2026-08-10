@@ -905,9 +905,11 @@
 const dateInput = document.getElementById('resa-date');
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-const PREMIERE_DATE_DISPO = '2026-08-17'; // complet jusqu'au 16 août inclus
+const PREMIERE_DATE_DISPO = '2026-08-17'; // ouverture des réservations
+const DERNIERE_DATE_DISPO = '2026-09-14'; // fin de la période disponible
 const minDate = PREMIERE_DATE_DISPO > tomorrow.toISOString().split('T')[0] ? PREMIERE_DATE_DISPO : tomorrow.toISOString().split('T')[0];
 dateInput.min = minDate;
+dateInput.max = DERNIERE_DATE_DISPO;
 dateInput.value = minDate;
 updateTotal();
 
@@ -1184,17 +1186,28 @@ function isDateBloquee(dateStr) {
   return DATES_BLOQUEES.includes(dateStr);
 }
 
+function isHorsPeriode(dateStr) {
+  return dateStr < PREMIERE_DATE_DISPO || dateStr > DERNIERE_DATE_DISPO;
+}
+
 function updateDateInput() {
   const dateInput = document.getElementById('resa-date');
   if (!dateInput) return;
 
   dateInput.addEventListener('change', function() {
     const val = this.value;
+    const isEn = this.dataset.lang === 'en';
     if (isDateBloquee(val)) {
       this.value = '';
-      const msg = this.dataset.lang === 'en'
+      const msg = isEn
         ? 'This date is already fully booked. Please choose another date.'
         : 'Cette date est complète. Veuillez choisir une autre date.';
+      alert(msg);
+    } else if (isHorsPeriode(val)) {
+      this.value = '';
+      const msg = isEn
+        ? 'Bookings are only open from August 17 to September 14. Please choose a date in that range.'
+        : 'Les réservations sont ouvertes uniquement du 17 août au 14 septembre. Veuillez choisir une date dans cette période.';
       alert(msg);
     }
   });
