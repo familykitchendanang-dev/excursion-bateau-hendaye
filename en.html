@@ -593,10 +593,17 @@
       Join our <strong>private boat trip Hendaye</strong> — spend the day <strong>from 10:30 AM to 5:30 PM</strong> discovering the secret coves of the Basque Coast, only accessible by sea. Turquoise waters, local picnic, and snorkeling included.
     </p>
 
-    <div class="price-badge" aria-label="Tarif 145 euros par personne, repas et boissons inclus">
-      <span class="amount">145€</span>
-      <span class="per">/ person</span>
-      <span class="incl">meals included</span>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;animation:fadeUp 1s ease 0.3s both;">
+      <div class="price-badge" style="margin-bottom:0;" aria-label="€145 per person, meals and drinks included">
+        <span class="amount">145€</span>
+        <span class="per">/ person</span>
+        <span class="incl">meals included</span>
+      </div>
+      <div class="price-badge" style="margin-bottom:0;background:var(--ocean);box-shadow:0 8px 30px rgba(10,77,107,0.4);width:140px;height:140px;" aria-label="Private hire €1000 meals included">
+        <span class="amount" style="font-size:1.6rem;">1000€</span>
+        <span class="per">private hire</span>
+        <span class="incl">meals included</span>
+      </div>
     </div>
 
     <div class="hero-ctas">
@@ -892,8 +899,10 @@
 const dateInput = document.getElementById('resa-date');
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-dateInput.min = tomorrow.toISOString().split('T')[0];
-dateInput.value = tomorrow.toISOString().split('T')[0];
+const FIRST_AVAILABLE_DATE = '2026-08-17'; // fully booked through August 16
+const minDate = FIRST_AVAILABLE_DATE > tomorrow.toISOString().split('T')[0] ? FIRST_AVAILABLE_DATE : tomorrow.toISOString().split('T')[0];
+dateInput.min = minDate;
+dateInput.value = minDate;
 updateTotal();
 
 function updateTotal() {

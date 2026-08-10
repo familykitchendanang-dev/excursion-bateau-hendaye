@@ -594,10 +594,17 @@
       inaccessibles autrement qu'en mer, eaux turquoises, pique-nique local, et baignade avec masques et tubas.
     </p>
 
-    <div class="price-badge" aria-label="Tarif 145 euros par personne, repas et boissons inclus">
-      <span class="amount">145€</span>
-      <span class="per">/ personne</span>
-      <span class="incl">repas inclus</span>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem;animation:fadeUp 1s ease 0.3s both;">
+      <div class="price-badge" style="margin-bottom:0;" aria-label="Tarif 145 euros par personne, repas et boissons inclus">
+        <span class="amount">145€</span>
+        <span class="per">/ personne</span>
+        <span class="incl">repas inclus</span>
+      </div>
+      <div class="price-badge" style="margin-bottom:0;background:var(--ocean);box-shadow:0 8px 30px rgba(10,77,107,0.4);width:140px;height:140px;" aria-label="Privatisation 1000 euros repas inclus">
+        <span class="amount" style="font-size:1.6rem;">1000€</span>
+        <span class="per">privatisation</span>
+        <span class="incl">repas inclus</span>
+      </div>
     </div>
 
     <p style="color:rgba(255,255,255,0.9);font-size:0.85rem;margin-bottom:1rem;letter-spacing:0.03em;">🗣️ Je parle : 🇫🇷 Français · 🇬🇧 Anglais · 🇩🇪 Allemand</p>
@@ -898,8 +905,10 @@
 const dateInput = document.getElementById('resa-date');
 const tomorrow = new Date();
 tomorrow.setDate(tomorrow.getDate() + 1);
-dateInput.min = tomorrow.toISOString().split('T')[0];
-dateInput.value = tomorrow.toISOString().split('T')[0];
+const PREMIERE_DATE_DISPO = '2026-08-17'; // complet jusqu'au 16 août inclus
+const minDate = PREMIERE_DATE_DISPO > tomorrow.toISOString().split('T')[0] ? PREMIERE_DATE_DISPO : tomorrow.toISOString().split('T')[0];
+dateInput.min = minDate;
+dateInput.value = minDate;
 updateTotal();
 
 function updateTotal() {
