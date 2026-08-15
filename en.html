@@ -946,6 +946,11 @@ function checkForm(e) {
     alert('Please fill in all required fields (first name, last name, email and date).');
     return false;
   }
+  if (isDateBloquee(date) || isOutsidePeriod(date)) {
+    e.preventDefault();
+    alert('This date is not available. Please choose another date.');
+    return false;
+  }
   buildPaypalLink();
   return true;
 }
@@ -959,6 +964,10 @@ function submitReservation(e) {
   const date = document.getElementById('resa-date').value;
   if (!prenom || !nom || !email || !date) {
     alert('Please fill in all required fields (first name, last name, email and date).');
+    return;
+  }
+  if (isDateBloquee(date) || isOutsidePeriod(date)) {
+    alert('This date is not available. Please choose another date.');
     return;
   }
   const persons = document.getElementById('resa-persons').value;
@@ -1171,6 +1180,10 @@ document.querySelectorAll('#resa-prenom,#resa-nom,#resa-indicatif,#resa-tel,#res
 // Dates bloquées — mettre à jour manuellement
 const DATES_BLOQUEES = [
   // Format: 'YYYY-MM-DD'
+  '2026-08-16',
+  '2026-08-17',
+  '2026-08-18',
+  '2026-08-19',
 ];
 
 function isDateBloquee(dateStr) {
@@ -1181,9 +1194,25 @@ function isOutsidePeriod(dateStr) {
   return dateStr < FIRST_AVAILABLE_DATE || dateStr > LAST_AVAILABLE_DATE;
 }
 
+function nextAvailableDate(startStr) {
+  const end = new Date(LAST_AVAILABLE_DATE + 'T00:00:00');
+  let d = new Date(startStr + 'T00:00:00');
+  while (d <= end) {
+    const s = d.toISOString().split('T')[0];
+    if (!isDateBloquee(s)) return s;
+    d.setDate(d.getDate() + 1);
+  }
+  return '';
+}
+
 function updateDateInput() {
   const dateInput = document.getElementById('resa-date');
   if (!dateInput) return;
+
+  if (isDateBloquee(dateInput.value) || isOutsidePeriod(dateInput.value)) {
+    dateInput.value = nextAvailableDate(dateInput.value);
+    if (typeof updateTotal === 'function') updateTotal();
+  }
 
   dateInput.addEventListener('change', function() {
     const val = this.value;

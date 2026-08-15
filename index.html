@@ -952,6 +952,11 @@ function checkForm(e) {
     alert('Veuillez remplir tous les champs obligatoires (prénom, nom, email et date).');
     return false;
   }
+  if (isDateBloquee(date) || isHorsPeriode(date)) {
+    e.preventDefault();
+    alert('Cette date n\'est pas disponible. Veuillez choisir une autre date.');
+    return false;
+  }
   buildPaypalLink();
   return true;
 }
@@ -965,6 +970,10 @@ function submitReservation(e) {
   const date = document.getElementById('resa-date').value;
   if (!prenom || !nom || !email || !date) {
     alert('Veuillez remplir tous les champs obligatoires (prénom, nom, email et date).');
+    return;
+  }
+  if (isDateBloquee(date) || isHorsPeriode(date)) {
+    alert('Cette date n\'est pas disponible. Veuillez choisir une autre date.');
     return;
   }
   const persons = document.getElementById('resa-persons').value;
@@ -1180,6 +1189,10 @@ document.querySelectorAll('#resa-prenom,#resa-nom,#resa-indicatif,#resa-tel,#res
 // Dates bloquées — mettre à jour manuellement
 const DATES_BLOQUEES = [
   // Format: 'YYYY-MM-DD'
+  '2026-08-16',
+  '2026-08-17',
+  '2026-08-18',
+  '2026-08-19',
 ];
 
 function isDateBloquee(dateStr) {
@@ -1190,9 +1203,25 @@ function isHorsPeriode(dateStr) {
   return dateStr < PREMIERE_DATE_DISPO || dateStr > DERNIERE_DATE_DISPO;
 }
 
+function prochaineDateDispo(startStr) {
+  const fin = new Date(DERNIERE_DATE_DISPO + 'T00:00:00');
+  let d = new Date(startStr + 'T00:00:00');
+  while (d <= fin) {
+    const s = d.toISOString().split('T')[0];
+    if (!isDateBloquee(s)) return s;
+    d.setDate(d.getDate() + 1);
+  }
+  return '';
+}
+
 function updateDateInput() {
   const dateInput = document.getElementById('resa-date');
   if (!dateInput) return;
+
+  if (isDateBloquee(dateInput.value) || isHorsPeriode(dateInput.value)) {
+    dateInput.value = prochaineDateDispo(dateInput.value);
+    if (typeof updateTotal === 'function') updateTotal();
+  }
 
   dateInput.addEventListener('change', function() {
     const val = this.value;
